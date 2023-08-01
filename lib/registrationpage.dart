@@ -22,7 +22,7 @@ class _RegistrationState extends State<Registration2> {
             ),
             const Text(
               "Registration",
-              style: TextStyle(fontSize: 30, color: Colors.black,fontStyle: FontStyle.italic,fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 30, color: Colors.black,fontWeight: FontWeight.bold),
             ),
             Padding(
               padding: const EdgeInsets.all(15.0),
@@ -31,6 +31,7 @@ class _RegistrationState extends State<Registration2> {
                   prefixIcon: Icon(Icons.person),
                     hintText: "Name",
                     labelText: "Your Full Name",
+                    helperText: "First letter should be capital",
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(50))),
               ),
@@ -38,15 +39,15 @@ class _RegistrationState extends State<Registration2> {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: TextFormField(
-
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.phone),
                     hintText: "Phone Number",
                     labelText: "Phone Number",
+                    helperText: "Must contain 10 digits",
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(50))),
                 validator: (phone) {
-                  if (phone!.isEmpty) {
+                  if (phone!.isEmpty || phone.length==10) {
                     return "Fields are empty or invalid";
                   } else {
                     return null;
