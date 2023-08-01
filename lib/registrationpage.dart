@@ -22,7 +22,7 @@ class _RegistrationState extends State<Registration2> {
             ),
             const Text(
               "Registration",
-              style: TextStyle(fontSize: 30, color: Colors.purple),
+              style: TextStyle(fontSize: 30, color: Colors.black,fontStyle: FontStyle.italic,fontWeight: FontWeight.bold),
             ),
             Padding(
               padding: const EdgeInsets.all(15.0),
