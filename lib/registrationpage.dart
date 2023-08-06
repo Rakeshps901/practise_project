@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:practise_project/home.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Registration2 extends StatefulWidget {
   @override
@@ -6,6 +8,10 @@ class Registration2 extends StatefulWidget {
 }
 
 class _RegistrationState extends State<Registration2> {
+  var formkey=GlobalKey<FormState>();
+  bool showpass=true;
+  bool showpass1=true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,6 +19,7 @@ class _RegistrationState extends State<Registration2> {
         title: const Text('Registration Page'),
       ),
       body: Form(
+        key: formkey,
         child: Column(
           children: [
             Image.asset(
@@ -28,7 +35,7 @@ class _RegistrationState extends State<Registration2> {
               padding: const EdgeInsets.all(15.0),
               child: TextFormField(
                 decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.person),
+                    prefixIcon: Icon(Icons.person),
                     hintText: "Name",
                     labelText: "Your Full Name",
                     helperText: "First letter should be capital",
@@ -40,7 +47,7 @@ class _RegistrationState extends State<Registration2> {
               padding: const EdgeInsets.all(15.0),
               child: TextFormField(
                 decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.phone),
+                    prefixIcon: Icon(Icons.phone),
                     hintText: "Phone Number",
                     labelText: "Phone Number",
                     helperText: "Must contain 10 digits",
@@ -59,7 +66,7 @@ class _RegistrationState extends State<Registration2> {
               padding: const EdgeInsets.all(15.0),
               child: TextFormField(
                 decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.people),
+                    prefixIcon: Icon(Icons.people),
                     hintText: "Username",
                     labelText: "User Name",
                     helperText: "user name must be an email",
@@ -80,10 +87,22 @@ class _RegistrationState extends State<Registration2> {
                   right: 15,
                   bottom: 15),
               child: TextFormField(
-                obscureText: true,
+                obscureText: showpass,
                 obscuringCharacter: '*',
                 decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.visibility_off_sharp),
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            if (showpass == true) {
+                              showpass = false;
+                            } else {
+                              showpass = true;
+                            }
+                          });
+                        },
+                        icon: Icon(showpass == true
+                            ? Icons.visibility_off_sharp
+                            : Icons.visibility)),
                     hintText: "PassWord",
                     labelText: "Password",
                     helperText: "password must contain greater than 8 characters",
@@ -104,10 +123,22 @@ class _RegistrationState extends State<Registration2> {
                   right: 15,
                   bottom: 15),
               child: TextFormField(
-                obscureText: true,
+                obscureText: showpass1,
                 obscuringCharacter: '*',
                 decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.visibility_off_sharp),
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            if (showpass1 == true) {
+                              showpass1 = false;
+                            } else {
+                              showpass1 = true;
+                            }
+                          });
+                        },
+                        icon: Icon(showpass1 == true
+                            ? Icons.visibility_off_sharp
+                            : Icons.visibility)),
                     hintText: "Conform PassWord",
                     labelText: "Conform Password",
                     helperText: "password must contain greater than 8 characters",
@@ -122,7 +153,24 @@ class _RegistrationState extends State<Registration2> {
                 },
               ),
             ),
-            ElevatedButton(onPressed: () {}, child: Text("Register")),
+            ElevatedButton(onPressed: () {
+              final valid = formkey.currentState!.validate();
+              if(valid)
+              {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>HomePage()));
+              }
+              else{
+                Fluttertoast.showToast(
+                    msg: "Invalid Username or Password",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.TOP,
+                    // timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                    fontSize: 16.0
+                );
+              }
+            }, child: Text("Register")),
             TextButton(
                 onPressed: () {}, child: const Text("Already a user?? Login Now!!!"))
           ],

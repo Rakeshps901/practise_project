@@ -7,7 +7,6 @@ void main()
   runApp(MaterialApp(home: Register(),));
 }
 class Register extends StatefulWidget {
-
   @override
   State<Register> createState() => _RegisterState();
 }
